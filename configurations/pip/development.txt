@@ -1,0 +1,2 @@
+# Latest Stable Release of Django
+django==1.6.5
