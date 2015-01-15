@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from os.path import join
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -38,7 +39,14 @@ class Common(Configuration):
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'django.contrib.sites',
+        'core' ,
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
     )
+
+    SITE_ID = 1
 
     MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
@@ -47,6 +55,18 @@ class Common(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    )
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.core.context_processors.request",
+    "allauth.account.context_processors.account",
+    "django.contrib.auth.context_processors.auth",
+    "allauth.socialaccount.context_processors.socialaccount",
+    )
+
+    AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
     )
 
     ROOT_URLCONF = 'app.urls'
@@ -82,6 +102,15 @@ class Common(Configuration):
     # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
     STATIC_URL = '/static/'
+
+    # MEDIA CONFIGURATION
+    # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+    MEDIA_ROOT = join(BASE_DIR, 'media')
+ 
+    # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+    MEDIA_URL = '/media/'
+    # END MEDIA CONFIGURATION
+ 
 
 class Dev(Common):
     DEBUG = True
