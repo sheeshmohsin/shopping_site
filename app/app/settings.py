@@ -40,6 +40,7 @@ class Common(Configuration):
         'django.contrib.messages',
         'django.contrib.staticfiles',
         'django.contrib.sites',
+        'bootstrap3',
         'core' ,
         'allauth',
         'allauth.account',
