@@ -45,9 +45,20 @@ class Common(Configuration):
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
+        'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.github',
     )
 
     SITE_ID = 1
+
+    SOCIALACCOUNT_PROVIDERS = \
+    { 'google':
+        { 'SCOPE': ['profile', 'email'],
+          'AUTH_PARAMS': { 'access_type': 'online' } }}
+
+    LOGIN_REDIRECT_URL = '/'
+
+    SOCIALACCOUNT_QUERY_EMAIL = True
 
     MIDDLEWARE_CLASSES = (
         'django.contrib.sessions.middleware.SessionMiddleware',
