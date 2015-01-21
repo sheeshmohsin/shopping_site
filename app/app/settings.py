@@ -58,15 +58,15 @@ class Common(Configuration):
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.request",
-    "allauth.account.context_processors.account",
-    "django.contrib.auth.context_processors.auth",
-    "allauth.socialaccount.context_processors.socialaccount",
+        "django.core.context_processors.request",
+        "allauth.account.context_processors.account",
+        "django.contrib.auth.context_processors.auth",
+        "allauth.socialaccount.context_processors.socialaccount",
     )
 
     AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
+        "django.contrib.auth.backends.ModelBackend",
+        "allauth.account.auth_backends.AuthenticationBackend",
     )
 
     ROOT_URLCONF = 'app.urls'
@@ -83,7 +83,10 @@ class Common(Configuration):
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-
+    
+    TEMPLATE_DIRS = (
+        os.path.join(BASE_DIR, 'templates')
+    )
     # Internationalization
     # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
@@ -103,6 +106,12 @@ class Common(Configuration):
 
     STATIC_URL = '/static/'
 
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+
+    STATIC_ROOT = join(BASE_DIR, 'staticfiles')
+
     # MEDIA CONFIGURATION
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
     MEDIA_ROOT = join(BASE_DIR, 'media')
@@ -114,4 +123,3 @@ class Common(Configuration):
 
 class Dev(Common):
     DEBUG = True
-    
