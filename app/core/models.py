@@ -7,9 +7,15 @@ from django.utils.translation import ugettext_lazy as _
 class Main(models.Model):
     category = models.CharField(max_length=50)
 
+    def __unicode__(self):
+        return self.category
+
 class Dresses_type(models.Model):
     subcategory = models.CharField(max_length=50)
     main = models.ForeignKey(Main)
+
+    def __unicode__(self):
+        return self.subcategory
 
 class Colour(models.Model):
     colour = models.CharField(max_length=50)
