@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <h3>Categories</h3>
+                <ul class="list-group">
+                    {% for subcategory in subcategories %}
+                    <li class="list-group-item">{{ subcategory }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-9 design">
+                <h3 style="color:#0a3151"><strong>Women</strong></h3>
+                <p style="color:#0a3151">Items: All; Price Range: Max</p>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+    hr {
+        -moz-border-bottom-colors: none;
+        -moz-border-image: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        border-color: #0a3151 -moz-use-text-color #0a3151;
+        border-style: solid none;
+        border-width: 2px 0;
+        margin: 18px 0;
+    }
+    .design{
+        border-left: 1px solid #0a3151;
+    }
+    </style>
+{% endblock %}
