@@ -1,0 +1,752 @@
+{% load static %}
+<html>
+
+<head>
+    <title>Bong's Collection</title>
+
+    <link href="{% static "css/bootstrap.min.css" %}" media="screen" rel="stylesheet">
+    <script src="{% static "js/jquery.min.js" %}"></script>
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/shieldui-all.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default" id="fmeasure" style="background:#005387;border-radius:0;">
+        <div class="col-lg-12" style="background:#005387;color:#fdd922" id="scroll">Your Suggestion and Support very much required to success the initiatives -- Bong Collection</div>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".collapse-cus">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"><img class="connecting" src="{% static "images/logo.png" %}" width="350"/></a>
+        </div>
+        <div class="navbar-collapse collapse collapse-cus">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Feedback  or Suggestion</a></li>
+            <li><a href="../navbar-static-top/">Signup</a></li>
+            <li id="size"><a href="./">Login</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+    <!-- End fixed navbar -->
+    <div class="navbar navbar-default navbar-custom" style="background:#0a3151;top:-1.5em;border-radius:0;border-top:0;;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".collapse-custom">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+      <div class="navbar-collapse collapse collapse-custom">
+          <ul class="nav navbar-nav">
+            <li><a href="../navbar/">Women</a></li>
+            <li><a href="../navbar-static-top/">Men</a></li>
+            <li><a href="./">Boys</a></li>
+            <li><a href="./">Girls</a></li>
+            <li><a href="./">Gift Items</a></li>
+          </ul>
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4 col-md-4">
+            <form class="navbar-form" role="search">
+                <div class="input-group col-sm-12">
+                    <input type="text" class="form-control search-input" placeholder="Search" name="q">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default btn-search" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="glyphicon glyphicon-shopping-cart cart-color"></i> <b>0</b> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">No Items</a></li>
+                </ul>
+            </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+
+<!-- Form -->
+<div class="container">
+<div class="row">
+    <p style="font-size: 20px; color: #0a3151;">Dear Customers,</p>
+    <p style="font-size: 20px; color: #0a3151;">We are expecting your valuable feedback and suggestion which will help us to improve our sevice quality.We will definitly try to mitigate your expectation as our best.</p>
+    <p style="font-size: 20px; color: #0a3151;">- Bong's Collection</p>
+</div
+</div>
+<div class="container" id="container1">
+    <div class="row">
+        <form role="form">
+            <div class="col-lg-6">
+                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+                <div class="form-group">
+                    <label for="InputName">Enter Name</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="InputName" id="InputName" placeholder="Enter Name" required>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="select" class="control-label">Selects</label>
+                    <div class="input-group">
+                    <select class="form-control" id="select">
+                        <option>Feedback</option>
+                        <option>Suggestion</option>
+                        <option>Complain</option>
+                        <option>Other</option>
+                    </select>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="InputMessage">Description</label>
+                    <div class="input-group">
+                        <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" required></textarea>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+            </div>
+        <div class="col-lg-5 col-md-push-1">
+        <div class="panel panel-default">
+
+            <ul class="list-group list-group-flush text-center">
+                <li class="list-group-item ">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Product-Design</div>
+                        <div class="rating arrange" id="rate1"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Product-Quality</div>
+                        <div class="rating" id="rate2"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Delivery</div>
+                        <div class="rating" id="rate3"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Ordering process</div>
+                        <div class="rating" id="rate4"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Payment Mode</div>
+                        <div class="rating" id="rate5"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Reliability</div>
+                        <div class="rating" id="rate6"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Overall</div>
+                        <div class="rating" id="rate7"></div>
+                    </div>
+                </li>
+            </ul>
+            <div class="panel-footer text-center">
+                <button type="button" class="btn btn-primary btn-lg btn-block">
+                    Submit
+                </button>
+            </div>
+        </div>
+      </div>
+    </form>
+ </div>
+<!-- End Form -->
+
+    <hr class="featurette-divider">
+
+<!-- Average Feedback -->
+<div class="row">
+    <h4 class="text-center skills" style="color: #0a3151;">Feedback Summary</h4>
+      <div class="col-sm-12 col-lg-5">
+        <div class="panel panel-default">
+            <ul class="list-group list-group-flush text-center">
+                <li class="list-group-item">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center arranger">Product-Design</div>
+                        <div class="rating arrange" id="rate8"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Product-Quality</div>
+                        <div class="rating" id="rate9"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Delivery</div>
+                        <div class="rating" id="rate10"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Ordering process</div>
+                        <div class="rating" id="rate11"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Payment Mode</div>
+                        <div class="rating" id="rate12"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Reliability</div>
+                        <div class="rating" id="rate13"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-center">
+                    <div class="skillLineDefault">
+                        <div class="skill pull-left text-center">Overall</div>
+                        <div class="rating" id="rate14"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+  </div>
+    <div class="col-sm-12 col-lg-6 col-md-push-1">
+      <div style="font-size:1.5em;color:#0a3151;">Feedback</div>
+        <div class="progress" id="progress1">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">               
+            </div>
+            <span class="progress-type">Overall Progress</span>
+            <span class="progress-completed">100%</span>
+        </div>
+      <div style="font-size:1.5em;color:#0a3151;">Suggestion</div>
+        <div class="progress" id="progress1">
+            <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">               
+            </div>
+            <span class="progress-type">Overall Progress</span>
+            <span class="progress-completed">20%</span>
+        </div>
+      <div style="font-size:1.5em;color:#0a3151;">Complain</div>
+        <div class="progress" id="progress1">
+            <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">               
+            </div>
+            <span class="progress-type">Overall Progress</span>
+            <span class="progress-completed">40%</span>
+        </div>
+      <div style="font-size:1.5em;color:#0a3151;">Other</div>
+        <div class="progress" id="progress1">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">               
+            </div>
+            <span class="progress-type">Overall Progress</span>
+            <span class="progress-completed">60%</span>
+        </div>
+  </div>
+</div>
+
+    <hr class="featurette-divider">
+    <hr class="featurette-divider">
+
+    <div class="row">
+      <h4 class="text-center skills" style="color:#0a3151;">Individual Feedback</h4>
+        <div class="col-lg-12">
+            <div class="panel panel-primary row">
+                <div class="panel-body col-lg-8">
+                    <strong>Name:</strong> Shalini<br>
+                    <strong>Date:</strong> 23/01/2015<br>
+                    <strong>Category:</strong> Girl<br>
+                    <strong>Description:</strong>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquam, augue vitae pulvinar feugiat, magna ipsum varius tellus, 
+                    quis lobortis est nulla nec ligula. Aenean cursus enim sit amet tortor rutrum lobortis. 
+                    Vestibulum mattis mauris fringilla mauris volutpat, in euismod arcu ultricies. 
+                    Nunc eget hendrerit lectus. Proin rutrum elit ut orci fringilla, sit amet ornare turpis molestie. 
+                    Proin nec neque eget nulla scelerisque rhoncus sit amet vitae augue. 
+                    Vivamus ipsum eros, sodales sed enim ac, malesuada iaculis mi. 
+                    Morbi ut orci sit amet tellus posuere convallis. 
+                    Cras rhoncus tincidunt ultrices.<br>
+                </div>
+                <div class="panel-body col-lg-4">
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item">
+                            <div class="skillLineDefault1">
+                                <div class="skill1 pull-left text-center">Product-Design</div>
+                                <div class="rating arrange" id="rate15"></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <div class="skillLineDefault1">
+                                <div class="skill1 pull-left text-center">Product-Quality</div>
+                                <div class="rating" id="rate16"></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <div class="skillLineDefault1">
+                                <div class="skill1 pull-left text-center">Delivery</div>
+                                <div class="rating" id="rate17"></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <div class="skillLineDefault1">
+                                <div class="skill1 pull-left text-center">Ordering process</div>
+                                <div class="rating" id="rate18"></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <div class="skillLineDefault1">
+                                <div class="skill1 pull-left text-center">Payment Mode</div>
+                                <div class="rating" id="rate19"></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <div class="skillLineDefault1">
+                                <div class="skill1 pull-left text-center">Reliability</div>
+                                <div class="rating1" id="rate20"></div>
+                            </div>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <div class="skillLineDefault1">
+                                <div class="skill1 pull-left text-center">Overall</div>
+                                <div class="rating1" id="rate21"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- End Average Feedback -->
+  </div>
+</div>
+
+<ul class="pager">
+  <li><a href="#">Previous</a></li>
+  <li><a href="#">Next</a></li>
+</ul>
+
+<!-- Footer -->
+<br><br>
+<!-- Static bottom navbar -->
+<div class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".bottom-collapse"> <!-- NOTE! data-target was changed to .bottom-collapse -->
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse bottom-collapse"> <!-- NOTE! The extra bottom-collapse class put on here -->
+      <ul class="nav navbar-nav">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#about">Terms & Policies</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul><!-- 
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="../navbar/">Default</a></li>
+        <li><a href="../navbar-fixed-top/">Fixed Bottom</a></li>
+      </ul> -->
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+<!-- End Footer -->
+    <script type="text/javascript">
+msg = "Your Suggestion and Support very much required to success the initiatives -- Bong Collection....     ";
+pos = 0;
+function ScrollMessage() {
+   var newtext = msg.substring(pos, msg.length) + msg.substring(0, pos);
+   var div = document.getElementById("scroll");
+   div.firstChild.nodeValue = newtext;
+   pos++;
+   if (pos >= msg.length) pos = 0;
+   window.setTimeout(ScrollMessage,300);
+}
+
+ScrollMessage(); 
+    </script>
+<style type="text/css">
+#scroll{
+    text-align: center;
+    border-bottom: 2px solid white;
+}
+.navbar .brand, .navbar .nav > li > a {
+    color: white;
+}
+.navbar .brand, .navbar .nav > li > a:hover {
+    color: white;
+}
+.connecting {
+        height: 2.2em;
+        margin-top: -10px;
+    }
+.navbar{
+    min-height:20px;
+}
+i{
+  padding:3px;
+}
+.btn-search{
+  background:#fdd922;
+}
+input.form-control.search-input{
+  width:800px;
+}
+.cart-color{
+  color:#fdd922;
+}
+b{
+  color:white;
+}
+</style>
+<style>
+#carousel1{
+  top:-3em;
+}
+#carousel1 .nav a small {
+    display: block;
+}
+#carousel1 .nav {
+    background: #eee;
+}
+.nav-justified > li > a {
+    border-radius: 0px;
+}
+.nav-pills > li[data-slide-to="0"].active a {
+    background-color: #b4d9a7;
+}
+.nav-pills > li[data-slide-to="1"].active a {
+    background-color: #4f77cb;
+}
+.nav-pills > li[data-slide-to="2"].active a {
+    background-color: #d11e4f;
+}
+</style>
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        $('#carousel1').carousel({
+            interval: 2000
+        });
+
+        var clickEvent = false;
+
+        $('#carousel1').on('click', '.nav a', function () {
+            clickEvent = true;
+            $('.nav li').removeClass('active');
+            $(this).parent().addClass('active');
+        }).on('slid.bs.carousel', function (e) {
+            if (!clickEvent) {
+                var count = $('.nav').children().length - 1;
+                var current = $('.nav li.active');
+                current.removeClass('active').next().addClass('active');
+                var id = parseInt(current.data('slide-to'));
+                if (count == id) {
+                    $('.nav li').first().addClass('active');
+                }
+            }
+            clickEvent = false;
+        });
+    });
+</script>
+<style type="text/css">
+.carousel-inner .active.left { left: -25%; }
+.carousel-inner .next        { left:  25%; }
+.carousel-inner .prev    { left: -25%; }
+.carousel-control        { width:  4%; }
+.carousel-control.left,.carousel-control.right {margin-left:15px;background-image:none;}
+.heading{
+  color:#005387;
+  top:-1em;
+}
+</style>
+<script>
+$(document).ready(function(){
+  $('#myCarousel').carousel();
+});
+$(document).ready(function(){
+  $('#myCarousel1').carousel();
+});
+$('#myCarousel').carousel({
+  interval: 4000
+});
+$('#myCarousel1').carousel({
+  interval: 3000
+});
+$('.carousel .aitem').each(function(){
+  var next = $(this).next();
+  if (!next.length) {
+    next = $(this).siblings(':first');
+  }
+  next.children(':first-child').clone().appendTo($(this));
+  
+  for (var i=0;i<2;i++) {
+    next=next.next();
+    if (!next.length) {
+      next = $(this).siblings(':first');
+    }
+    
+    next.children(':first-child').clone().appendTo($(this));
+  }
+});
+$('.carousel .bitem').each(function(){
+  var next = $(this).next();
+  if (!next.length) {
+    next = $(this).siblings(':first');
+  }
+  next.children(':first-child').clone().appendTo($(this));
+  
+  for (var i=0;i<2;i++) {
+    next=next.next();
+    if (!next.length) {
+      next = $(this).siblings(':first');
+    }
+    
+    next.children(':first-child').clone().appendTo($(this));
+  }
+});
+</script>
+<style type="text/css">
+.navbar-fixed-bottom{
+  position:relative;
+  background:rgb(7,36,50);
+}
+</style>
+<style>
+    #container1 {
+        margin-bottom: 120px;
+        padding:20px;
+        background-color:#f5f5f5;
+    }
+
+    .rating {
+        margin-left: 30px;
+    }
+
+    div.skill {
+        background: white;
+        border-radius: 3px;
+        color: black;
+        font-weight: bold;
+        padding: 1px 2px;
+        width: 10em;
+    }
+
+    .skillLine {
+        display: inline-block;
+        width: 100%;
+        min-height: 90px;
+        padding: 3px 4px;
+    }
+
+    .skillLineDefault {
+        padding: 3px 4px;
+    }
+    .rating1 {
+        margin-left: 30px;
+    }
+
+    div.skill1 {
+        background: white;
+        border-radius: 1px;
+        color: black;
+        font-weight: bold;
+        padding: 0.5px 1px;
+        width: 10em;
+    }
+
+    .skillLine1 {
+        display: inline-block;
+        width: 40%;
+        min-height: 30px;
+        padding: 0.5px 1px;
+    }
+
+    .skillLineDefault1 {
+        padding: 0.5px 0.5px;
+    }
+</style>
+<script type="text/javascript">
+    initializeRatings();
+
+    function initializeRatings() {
+        $('#rate1').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate2').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6,
+            markPreset: false
+        });
+        $('#rate3').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 4.5,
+            markPreset: false
+        });
+        $('#rate4').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 5,
+            markPreset: false
+        });
+        $('#rate5').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate6').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate7').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate8').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 5,
+            markPreset: false
+        });
+        $('#rate9').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate10').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate11').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate12').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate13').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate14').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate15').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 5,
+            markPreset: false
+        });
+        $('#rate16').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate17').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate18').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate19').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate20').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+        $('#rate21').shieldRating({
+            max: 7,
+            step: 0.1,
+            value: 6.3,
+            markPreset: false
+        });
+    }
+</script>
+<style>
+.progress {    
+    position: relative;
+    height: 25px;
+}
+
+.progress > .progress-type {
+    position: absolute;
+    left: 0px;
+    font-weight: 800;
+    padding: 3px 30px 2px 10px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(25, 25, 25, 0.2);
+}
+
+.progress > .progress-completed {
+    position: absolute;
+    right: 0px;
+    font-weight: 800;
+    padding: 3px 10px 2px;
+}
+</style>
+<script type="text/javascript">
+    function resetActive(event, percent) {
+        $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
+        $(".progress-completed").text(percent + "%");
+
+        $("div").each(function () {
+            if ($(this).hasClass("activestep")) {
+                $(this).removeClass("activestep");
+            }
+        });
+
+        if (event.target.className == "col-md-2") {
+            $(event.target).addClass("activestep");
+        }
+        else {
+            $(event.target.parentNode).addClass("activestep");
+        }
+    }
+</script>
+</body>
+</html>
