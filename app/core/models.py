@@ -55,5 +55,5 @@ class Feedback(models.Model):
         ('Other', 'other'),
     )
     name = models.CharField(_('Name'), max_length=50)
-    doctor = models.CharField(_('Category'), choices=CATEGORY_CHOICE, max_length=25)
+    category = models.CharField(_('Category'), choices=CATEGORY_CHOICE, max_length=25)
     description = models.TextField(_('Description'), max_length=200)
