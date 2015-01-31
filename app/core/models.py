@@ -47,4 +47,13 @@ class Item(models.Model):
     fk_seller = models.ForeignKey(Seller)
     fk_type = models.ForeignKey(Dresses_type)
 
-
+class Feedback(models.Model):
+    CATEGORY_CHOICE = (
+        ('Feedback', 'feedback'),
+        ('Suggestion', 'suggestion'),
+        ('Complain', 'complain'),
+        ('Other', 'other'),
+    )
+    name = models.CharField(_('Name'), max_length=50)
+    doctor = models.CharField(_('Category'), choices=CATEGORY_CHOICE, max_length=25)
+    description = models.TextField(_('Description'), max_length=200)
