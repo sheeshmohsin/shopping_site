@@ -28,23 +28,43 @@ class Common(Configuration):
     TEMPLATE_DEBUG = True
 
     ALLOWED_HOSTS = []
-
-
-    # Application definition
-
-    INSTALLED_APPS = (
-        'django.contrib.admin',
+    # APP CONFIGURATION
+    # -----------------
+    DJANGO_APPS = (
+        # Default Django apps:
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
+        'django.contrib.sites',
         'django.contrib.messages',
         'django.contrib.staticfiles',
-        'django.contrib.sites',
+
+        # Useful template tags:
+        # 'django.contrib.humanize',
+
+        # Admin
+        'django.contrib.admin',
+    )
+    THIRD_PARTY_APPS = (
         'bootstrap3',
-        'core' ,
-        'allauth',
-        'allauth.account',
-        'allauth.socialaccount',
+    )
+
+    LOCAL_APPS = (
+        # Your stuff: custom apps go here
+        'users',  # custom users app
+        'core',
+        'global',
+    )
+
+    # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
+    INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+    INSTALLED_APPS += (
+        # Needs to come last for now because of a weird edge case between
+        #   South and allauth
+        'allauth',  # registration
+        'allauth.account',  # registration
+        'allauth.socialaccount',  # registration
         'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.github',
     )
