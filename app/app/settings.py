@@ -53,7 +53,7 @@ class Common(Configuration):
         # Your stuff: custom apps go here
         'users',  # custom users app
         'core',
-        'global',
+        'explore',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -94,6 +94,7 @@ class Common(Configuration):
         "allauth.account.context_processors.account",
         "django.contrib.auth.context_processors.auth",
         "allauth.socialaccount.context_processors.socialaccount",
+        "explore.context_processors.category_list",
     )
 
     AUTHENTICATION_BACKENDS = (
