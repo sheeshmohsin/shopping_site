@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+
 <!-- Start Caraousel -->
 <div class="container">
     <div id="carousel1" class="carousel slide" data-ride="carousel">
@@ -61,30 +62,35 @@
 <div class="carousel slide" id="myCarousel">
   <br>
   <div class="carousel-inner">
+    {% for arrival in final %}
+        {% if forloop.first %}
     <div class="item active aitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=1" class="img-responsive"><div class="carousel-caption">Title<br>Price</div></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/media/{{ arrival.picture1 }}" class="img-responsive"></a></div>
+    </div>
+    {% else %}
+    <div class="item aitem">
+      <div class="col-xs-3"><a href="#"><img src="/media/{{ arrival.picture1 }}" class="img-responsive"></a></div>
+    </div>
+    {% endif %}
+    {% endfor %}
+<!--     <div class="item aitem">
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item aitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e477e4/fff&amp;text=2" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item aitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/eeeeee&amp;text=3" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item aitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/f4f4f4&amp;text=4" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item aitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/f566f5/333&amp;text=5" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item aitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/f477f4/fff&amp;text=6" class="img-responsive"></a></div>
-    </div>
-    <div class="item aitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/eeeeee&amp;text=7" class="img-responsive"></a></div>
-    </div>
-    <div class="item aitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/fcfcfc/333&amp;text=8" class="img-responsive"></a></div>
-    </div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
+    </div> -->
   </div>
   <br>
   <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
@@ -101,30 +107,41 @@
 <div class="carousel slide" id="myCarousel1">
   <br>
   <div class="carousel-inner">
+    {% for arrivals in final1 %}
+        {% if forloop.first %}
     <div class="item active bitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e499e4/fff&amp;text=1" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/media/{{ arrivals.picture1 }}" class="img-responsive"></a></div>
+    </div>
+    {% else %}
+    <div class="item bitem">
+      <div class="col-xs-3"><a href="#"><img src="/media/{{ arrivals.picture1 }}" class="img-responsive"></a></div>
+    </div>
+    {% endif %}
+    {% endfor %}
+<!--     <div class="item active bitem">
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
+    </div>
+  <div class="item bitem">
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item bitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/e477e4/fff&amp;text=2" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item bitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/eeeeee&amp;text=3" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item bitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/f4f4f4&amp;text=4" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item bitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/f566f5/333&amp;text=5" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item bitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/f477f4/fff&amp;text=6" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
     </div>
     <div class="item bitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/eeeeee&amp;text=7" class="img-responsive"></a></div>
-    </div>
-    <div class="item bitem">
-      <div class="col-xs-3"><a href="#"><img src="http://placehold.it/500/fcfcfc/333&amp;text=8" class="img-responsive"></a></div>
-    </div>
+      <div class="col-xs-3"><a href="#"><img src="/static/images/placehold.gif" class="img-responsive"></a></div>
+    </div> -->
   </div>
   <a class="left carousel-control" href="#myCarousel1" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
   <a class="right carousel-control" href="#myCarousel1" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>

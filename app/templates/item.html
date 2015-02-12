@@ -11,11 +11,11 @@
     <div class="row">
         <div class="col-lg-5">
             <ul id="lightSlider" class="gallery">
-                <li data-thumb="{% static "images/1.jpg" %}"><a href="#"><img src="{% static "images/1.jpg" %}"/></a></li>
-                <li data-thumb="{% static "images/2.jpg" %}"><a href="#"><img src="{% static "images/2.jpg" %}"/></a></li>
-                <li data-thumb="{% static "images/3.jpg" %}"><a href="#"><img src="{% static "images/3.jpg" %}"/></a></li>
-                <li data-thumb="{% static "images/4.jpg" %}"><a href="#"><img src="{% static "images/4.jpg" %}"/></a></li>
-                <li data-thumb="{% static "images/5.jpg" %}"><a href="#"><img src="{% static "images/5.jpg" %}"/></a></li>
+                <li data-thumb="/media/{{ item.picture1 }}"><a href="#"><img src="/media/{{ item.picture1 }}"/></a></li>
+                <li data-thumb="/media/{{ item.picture2 }}"><a href="#"><img src="/media/{{ item.picture2 }}"/></a></li>
+                <li data-thumb="/media/{{ item.picture3 }}"><a href="#"><img src="/media/{{ item.picture3 }}"/></a></li>
+                <li data-thumb="/media/{{ item.picture4 }}"><a href="#"><img src="/media/{{ item.picture4 }}"/></a></li>
+                
             </ul>
         </div>
         <div class="col-lg-1"></div>
