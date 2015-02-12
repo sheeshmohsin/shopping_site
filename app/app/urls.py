@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^item/(?P<pk>\d+)/$', 'explore.views.item'),
     url(r'^feedback/$', 'explore.views.feedback'),
     url(r'^main/', include('explore.urls')),
+    url(r'^cart/', include('cart.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('allauth.urls')),				
+    url(r'^accounts/', include('allauth.urls')),			
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

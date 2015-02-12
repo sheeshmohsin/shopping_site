@@ -47,6 +47,7 @@ class Common(Configuration):
     )
     THIRD_PARTY_APPS = (
         'bootstrap3',
+        'carton',
     )
 
     LOCAL_APPS = (
@@ -70,6 +71,8 @@ class Common(Configuration):
     )
 
     SITE_ID = 1
+
+    CART_PRODUCT_MODEL = 'core.models.Item'
 
     SOCIALACCOUNT_PROVIDERS = \
     { 'google':
