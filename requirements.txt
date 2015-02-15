@@ -1,0 +1,15 @@
+# Latest Stable Release of Django
+django==1.6.5
+
+# Configuration
+django-configurations==0.8
+
+# Bootstrap
+django-bootstrap3
+
+# For user registration, either via email or social
+# Well-built with regular release cycles!
+django-allauth==0.15.0
+
+# For cart system
+django-carton

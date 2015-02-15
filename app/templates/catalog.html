@@ -82,7 +82,7 @@
                         src="/media/{{ boys.picture1 }}" /></a>
                         <h4 class="text-center">Cypher Floored</h4>
                         <p class="text-center">Rs.49.99</p>
-                    <a class="btn btn-sm btn-block btn-default" style="background-color:#fdd922; font-size:15px;color:#0a3151;border-radius:0; border-width: 3px;">ADD To Cart</a> 
+                    <a class="btn btn-sm btn-block btn-default addToCart" style="background-color:#fdd922; font-size:15px;color:#0a3151;border-radius:0; border-width: 3px;" href="/cart/add/?id={{boys.id}}">ADD To Cart</a> 
                 </div>
             </div>
             </div>
@@ -192,4 +192,24 @@
         border-left: 1px solid #0a3151;
     }
     </style>
+    <script>
+    $(".addToCart").click(function(e)
+    {
+        var formURL = $(this).attr("href");
+        $.ajax(
+        {
+            url : formURL,
+            type: "GET",
+            success:function(data, textStatus, jqXHR) 
+            {
+                $("#countCart").text(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) 
+            {
+                alert('[Error] Please try Again');
+            }
+        });
+        e.preventDefault(); //STOP default action
+    });
+    </script>
 {% endblock %}

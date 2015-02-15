@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template import RequestContext
 from django.db.models import Q
 # view imports
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DetailView
 from django.views.generic import RedirectView
 from django.views.generic import UpdateView
@@ -50,5 +51,3 @@ def catalog(request, pk):
 
 def feedback(request):
     return render_to_response('feedback.html', context_instance=RequestContext(request))
-
-

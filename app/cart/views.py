@@ -16,9 +16,9 @@ from carton.cart import Cart
 
 def add(request):
     cart = Cart(request.session)
-    product = Item.objects.get(id=request.GET.get('product_id'))
+    product = Item.objects.get(id=request.GET.get('id'))
     cart.add(product, price=product.price)
-    return HttpResponse("Added")
+    return HttpResponse(len(cart.items))
 
 def show(request):
     return render(request, 'cart.html')
