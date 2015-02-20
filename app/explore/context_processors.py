@@ -1,4 +1,4 @@
 from core.models import *
 
 def category_list(request):
-	return { 'categories': Main.objects.all() }
+	return { 'categories': Category.objects.filter(parent_id__isnull=True) }
