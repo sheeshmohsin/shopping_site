@@ -28,6 +28,11 @@ def home(request):
 # class HomeView(TemplateView):
 #     template_name = 'home.html'
 
+def catalog(request, pk):
+    category = Category.objects.get(id=pk)
+    subcategories = Category.objects.filter(parent=category)
+    return render_to_response('catalog.html', {'subcategories':subcategories},
+     context_instance=RequestContext(request))
 
 # def item(request, pk):
 #     item = Item.objects.get(id=pk)
