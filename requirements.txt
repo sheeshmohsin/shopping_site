@@ -1,6 +1,12 @@
 # Latest Stable Release of Django
 django==1.6.5
 
+# Django Rest Framework
+djangorestframework
+
+# We'll be using this for the code highlighting
+pygments
+
 # Configuration
 django-configurations==0.8
 

@@ -8,7 +8,7 @@
                 <h3>Categories</h3>
                 <ul class="list-group">
                     {% for subcategory in subcategories %}
-                    <li class="list-group-item">{{ subcategory }}</li>
+                    <li class="list-group-item"><a href="/main/{{subcategory.id}}/">{{ subcategory }}</a></li>
                     {% endfor %}
                 </ul>
                 <hr>
@@ -74,17 +74,17 @@
             </div>
         </div> -->
         <div class="row">
-            {% for boys in finals %}
+            {% for item in finals %}
             <div class="col-md-4">
                 <div class="panel panel-primary" style="color:#0a3151;border-radius:0;">
-                    <div style="margin: 10px;"><a href="/item/{{boys.id}}/">
+                    <div style="margin: 10px;"><a href="/item/{{item.id}}/">
                     <img class="thumbnail img-responsive" alt="Bootstrap template" 
-                        src="/media/{{ boys.picture1 }}" /></a>
-                        <h4 class="text-center">Cypher Floored</h4>
-                        <p class="text-center">Rs.49.99</p>
+                        src="/media/{{ item.itemimage_set.all.0.image }}" /></a>
+                        <h4 class="text-center">{{ item.item_name }}</h4>
+                        <p class="text-center">Rs. {{ item.price_set.all.0.price }}</p>
                     <a class="btn btn-sm btn-block btn-default addToCart" style="background-color:#fdd922; font-size:15px;color:#0a3151;border-radius:0; border-width: 3px;" href="/cart/add/?id={{boys.id}}">ADD To Cart</a> 
+                    </div>
                 </div>
-            </div>
             </div>
             {% endfor %}
 <!--             <div class="col-md-4">

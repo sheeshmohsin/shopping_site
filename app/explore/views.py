@@ -1,7 +1,9 @@
 from django.shortcuts import render, render_to_response
 from core.models import *
+from django.core import serializers
 from django.core.context_processors import csrf
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from rest_framework.pagination import PaginationSerializer
 from django.template import RequestContext
 from django.db.models import Q
 # view imports
@@ -31,27 +33,24 @@ def home(request):
 def catalog(request, pk):
     category = Category.objects.get(id=pk)
     subcategories = Category.objects.filter(parent=category)
-    return render_to_response('catalog.html', {'subcategories':subcategories},
+    result = Item.objects.filter(fk_type__category=category)
+    paginator = Paginator(result, 9)
+
+    page = request.GET.get('page')
+
+    try:
+        result = paginator.page(page)
+    except PageNotAnInteger:
+        result = paginator.page(1)
+    except EmptyPage:
+        result = paginator.page(paginator.num_pages)
+
+    return render_to_response('catalog.html', {'subcategories':subcategories, 'finals':result},
      context_instance=RequestContext(request))
 
 # def item(request, pk):
 #     item = Item.objects.get(id=pk)
 #     return render_to_response('item.html', {'item':item}, context_instance=RequestContext(request))
-
-# def catalog(request, pk):
-#     category = Main.objects.get(id=pk)
-#     subcategories = category.dresses_type_set.all()
-#     final = Item.objects.filter(fk_type__fk_main__category=category.category)
-#     paginator = Paginator(final, 3)
-
-#     page = request.GET.get('page')
-#     try:
-#         finals = paginator.page(page)
-#     except PageNotAnInteger:
-#         finals = paginator.page(1)
-#     except EmptyPage:
-#         finals = paginator.page(paginator.num_pages)
-#     return render_to_response('catalog.html', {'subcategories':subcategories, 'category': category, 'finals':finals,}, context_instance=RequestContext(request))
 
 # def feedback(request):
 #     return render_to_response('feedback.html', context_instance=RequestContext(request))

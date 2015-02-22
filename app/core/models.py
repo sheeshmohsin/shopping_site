@@ -36,7 +36,7 @@ class Size(models.Model):
 class Seller(models.Model):
     name = models.CharField(_('Name'), max_length=50)
     address = models.TextField(_('Address'), max_length=50)
-    email = models.EmailField(_('Email Address'), max_length=20)
+    email = models.EmailField(_('Email Address'), max_length=100)
     contactno = models.CharField(_('Contact No.'), max_length=10)
 
     class Meta:
@@ -80,6 +80,19 @@ class Price(models.Model):
 
     def __unicode__(self):
         return self.price
+
+class Itemimage(models.Model):
+    item = models.ForeignKey(Item)
+    size = models.ForeignKey(Size)
+    color = models.ForeignKey(Colour)
+    seller = models.ForeignKey(Seller)
+    image = models.ImageField(_('Image'), upload_to=get_upload_file_path)
+
+    class Meta:
+        verbose_name_plural = 'Itemimage'
+
+    def __unicode__(self):
+        return "Image"
 
 class Feedback(models.Model):
     CATEGORY_CHOICE = (
