@@ -48,6 +48,7 @@ class Common(Configuration):
     THIRD_PARTY_APPS = (
         'bootstrap3',
         'carton',
+        'south',
     )
 
     LOCAL_APPS = (
