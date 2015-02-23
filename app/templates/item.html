@@ -1,51 +1,65 @@
-{% extends "home.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block exinstatic %}
     <script src="{% static "js/lightslider.js" %}"></script>
     <link href="{% static "css/lightslider.css" %}" media="screen" rel="stylesheet">
     <link href="{% static "css/font-awesome.min.css" %}" media="screen" rel="stylesheet">
+    <link href="{% static "css/sweet-alert.css" %}" media="screen" rel="stylesheet">
 {% endblock %}
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-lg-5">
             <ul id="lightSlider" class="gallery">
-                <li data-thumb="/media/{{ item.picture1 }}"><a href="#"><img src="/media/{{ item.picture1 }}"/></a></li>
-                <li data-thumb="/media/{{ item.picture2 }}"><a href="#"><img src="/media/{{ item.picture2 }}"/></a></li>
-                <li data-thumb="/media/{{ item.picture3 }}"><a href="#"><img src="/media/{{ item.picture3 }}"/></a></li>
-                <li data-thumb="/media/{{ item.picture4 }}"><a href="#"><img src="/media/{{ item.picture4 }}"/></a></li>
-                
+                {% for image in images %}
+                    <li data-thumb="/media/{{ image.image }}"><a href="#"><img src="/media/{{ image.image }}"/></a></li>
+                {% endfor %}
             </ul>
         </div>
         <div class="col-lg-1"></div>
         <div class="col-lg-6">
             <div class="row">
-            <h2>Item Name</h2>
+            <h2>{{ item.item_name }}</h2>
             <h4>Rating : 5 Star (10 reviews)</h4>
             <div class="col-lg-6">
-                Select Size:
-                <select class="form-control"><option>--Select--</option></select>
+                Select Size: 
+                <select class="form-control">
+                    <option>--Select--</option>
+                    {% for measure in item.fk_size.all %}
+                    <option>{{ measure.size }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="col-lg-6">
                 Select Color:
-                <select class="form-control"><option>--Select--</option></select>
+                <select class="form-control">
+                    <option>--Select--</option>
+                    {% for variety in item.fk_color.all %}
+                    <option>{{ variety.colour }}</option>
+                    {% endfor %}
+                </select>
             </div>
             </div>
             <div class="row">
                 <div class="col-lg-6">
                     <br>
                     <p style="font-size:1.5em;color:green;">In Stock</p>
-                    <h4 style="color:orange">Price: Rs 2300</h4>
-                    <h5 style="color:green">(Free Delivery)</h5>
+                    <h4 style="color:orange">Price: Rs {{ item.price_set.all.0.price }}</h4>
+                    {% if item.price_set.all.0.cod %}
+                    <h5 style="color:green">(Cash on Delivery Available)</h5>
+                    {% else %}
+                    <h5 style="color:red">(Cash on Delivery Not Available)</h5>
+                    {% endif %}
                     <button class="btn btn-primary btn-lg">Add to Cart</button>
                 </div>
                 <div class="col-lg-6">
                     <br>
-                    <form>
+                    <form id="checkpin" method="post" action="/checkpin/">{% csrf_token %}
                     <label>Check availability of this item by pincode:</label>
-                    <input type="text" class="form-control" placeholder="Enter Pincode"/><br>
-                    <button class="btn btn-success btn-md">Check</button>
+                    <input type="text" name="pincode" class="form-control" placeholder="Enter Pincode"/><br>
+                    <button type="submit" class="btn btn-success btn-md">Check</button>
+                    <img src="/static/images/loading.gif" alt="loading" id="loading"/>
                 </form>
                 </div>
             </div>
@@ -71,6 +85,37 @@
 {% block exlastatic %}
     <link href="{% static "css/item.css" %}" media="screen" rel="stylesheet">
     <script src="{% static "js/item.js" %}"></script>
+    <script src="{% static "js/sweet-alert.js" %}"></script>
+    <script type="text/javascript">
+    $("#loading").hide();
+    $("#checkpin").submit(function(e){
+        $("#loading").show();
+        var postData = $(this).serializeArray();
+        var formURL = $(this).attr("action");
+        $.ajax({
+            url : formURL,
+            type: "POST",
+            data: postData,
+            success:function(data, textStatus, jqXHR)
+            {
+                $("#loading").hide();
+                if(data=="not ok"){
+                    swal("Delivery", "Not Available at this location", "info");
+                }
+                else{
+                    swal("Delivery", "Available with 1 seller", "success");
+                }
+            }, 
+            error:function(jqXHR, textStatus, errorThrown)
+            {
+                $("#loading").hide();
+                swal("Some Error Occured");
+            }
+        });
+        e.preventDefault(); //STOP default action
+        e.unbind(); //unbind. to stop multiple form submit.
+    });
+    </script>
 {% endblock %}
 </body>
 </html>

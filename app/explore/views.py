@@ -3,6 +3,7 @@ from core.models import *
 from django.core import serializers
 from django.core.context_processors import csrf
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.pagination import PaginationSerializer
 from django.template import RequestContext
 from django.db.models import Q
@@ -48,11 +49,21 @@ def catalog(request, pk):
     return render_to_response('catalog.html', {'subcategories':subcategories, 'finals':result},
      context_instance=RequestContext(request))
 
-# def item(request, pk):
-#     item = Item.objects.get(id=pk)
-#     return render_to_response('item.html', {'item':item}, context_instance=RequestContext(request))
+def item(request, pk):
+    item = Item.objects.get(id=pk)
+    f = Q(seller=item.price_set.all()[0].fk_seller) | Q(color=item.price_set.all()[0].fk_color)
+    images = item.itemimage_set.filter(f)
+    return render_to_response('item.html', {'item':item, 'images':images}, context_instance=RequestContext(request))
 
-# def feedback(request):
-#     return render_to_response('feedback.html', context_instance=RequestContext(request))
+def feedback(request):
+    return render_to_response('feedback.html', context_instance=RequestContext(request))
+
+def checkpin(request):
+    pincode = request.POST['pincode']
+    try:
+        city = Pincode.objects.get(pincode=pincode)
+        return HttpResponse("ok")
+    except ObjectDoesNotExist:
+        return HttpResponse("not ok")
 
 

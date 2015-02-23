@@ -83,7 +83,6 @@ class Price(models.Model):
 
 class Itemimage(models.Model):
     item = models.ForeignKey(Item)
-    size = models.ForeignKey(Size)
     color = models.ForeignKey(Colour)
     seller = models.ForeignKey(Seller)
     image = models.ImageField(_('Image'), upload_to=get_upload_file_path)
@@ -110,3 +109,13 @@ class Feedback(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class Pincode(models.Model):
+    city = models.CharField(_('City'), max_length=40)
+    pincode = models.CharField(_('Pincode'), max_length=7, unique=True)
+
+    class Meta:
+        verbose_name_plural = 'Pincode'
+
+    def __unicode__(self):
+        return self.city
