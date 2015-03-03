@@ -20,26 +20,26 @@
         <div class="col-lg-1"></div>
         <div class="col-lg-6">
             <div class="row">
-            <h2>{{ item.item_name }}</h2>
-            <h4>Rating : 5 Star (10 reviews)</h4>
-            <div class="col-lg-6">
-                Select Size: 
-                <select class="form-control">
-                    <option>--Select--</option>
-                    {% for measure in item.fk_size.all %}
-                    <option>{{ measure.size }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-lg-6">
-                Select Color:
-                <select class="form-control">
-                    <option>--Select--</option>
-                    {% for variety in item.fk_color.all %}
-                    <option>{{ variety.colour }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <h2>{{ item.item_name }}</h2>
+                <h4>Rating : 5 Star (10 reviews)</h4>
+                <div class="col-lg-6">
+                    Select Size: 
+                    <select class="form-control">
+                        <option>--Select--</option>
+                        {% for measure in item.fk_size.all %}
+                        <option>{{ measure.size }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-lg-6">
+                    Select Color:
+                    <select class="form-control">
+                        <option>--Select--</option>
+                        {% for variety in item.fk_color.all %}
+                        <option>{{ variety.colour }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-6">
@@ -60,7 +60,7 @@
                     <input type="text" name="pincode" class="form-control" placeholder="Enter Pincode"/><br>
                     <button type="submit" class="btn btn-success btn-md">Check</button>
                     <img src="/static/images/loading.gif" alt="loading" id="loading"/>
-                </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -68,15 +68,69 @@
     <hr class="divider">
     <div class="row">
         <div class="col-lg-12">
+            <h3>Other Sellers</h3>
+            <table class="table">
+            {% for price in item.price_set.all %}
+            {% if forloop.first %}
+            {% else %}
+            <tr>
+                <td>{{ price.fk_seller.name }}</td>
+                <td>{{ price.price }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
             <h3>Description</h3>
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            <p>{{ item.description }}</p>
         </div>
     </div>
     <hr class="divider">
     <div class="row">
         <div class="col-lg-12">
             <h3>Reviews & Ratings</h3>
-            <p>No reviews yet.</p>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true">Reviews</a></li>
+                <li class=""><a href="#profile" data-toggle="tab" aria-expanded="false">Write a review</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="home">
+                    <p class="inside-review">No reviews yet.</p>
+                </div>
+                <div class="tab-pane fade" id="profile">
+                    {% if request.user.is_authenticated %}
+                    <div class="inside-review">
+                        <form class="form-horizontal" method="post" id="review-form" action="/review/" />{% csrf_token %}
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Rating: </label>
+                                <div class="col-lg-10">
+                                    {% for choice in reviewform.rating %}
+                                            {{ choice.tag }} &nbsp;
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="textArea" class="col-lg-2 control-label">Your Review:</label>
+                                <div class="col-lg-10">
+                                    {{ reviewform.review }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-10 col-lg-offset-2">
+                                    <button type="reset" class="btn btn-default">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% else %}
+                        <p class="inside-review">Please <a href="/accounts/login/">login</a> to post a review.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -84,6 +138,17 @@
 
 {% block exlastatic %}
     <link href="{% static "css/item.css" %}" media="screen" rel="stylesheet">
+    <style type="text/css">
+    ul#id_rating{
+        list-style: none;
+    }
+    ul#id_rating li{
+        display: inline;
+    }
+    .inside-review {
+        padding:2%;
+    }
+    </style>
     <script src="{% static "js/item.js" %}"></script>
     <script src="{% static "js/sweet-alert.js" %}"></script>
     <script type="text/javascript">

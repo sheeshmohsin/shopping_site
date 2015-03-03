@@ -48,7 +48,6 @@ class Common(Configuration):
     THIRD_PARTY_APPS = (
         'bootstrap3',
         'carton',
-        'south',
     )
 
     LOCAL_APPS = (
@@ -122,7 +121,7 @@ class Common(Configuration):
     }
     
     TEMPLATE_DIRS = (
-        os.path.join(BASE_DIR, 'templates')
+        (os.path.join(BASE_DIR, 'templates')),
     )
     # Internationalization
     # https://docs.djangoproject.com/en/1.6/topics/i18n/

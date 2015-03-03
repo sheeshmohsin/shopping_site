@@ -1,6 +1,7 @@
 from django.db import models
 from core.utils import get_upload_file_path
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -119,3 +120,23 @@ class Pincode(models.Model):
 
     def __unicode__(self):
         return self.city
+
+class Reviews(models.Model):
+    RATING_CHOICES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    )
+    user = models.ForeignKey(User)
+    item = models.ForeignKey(Item)
+    rating = models.CharField(_('Rating'), max_length=10, choices=RATING_CHOICES)
+    review = models.TextField(_('Your Review'))
+    confirmation = models.BooleanField(_('Confirmation of Admin'), default=False)
+
+    class Meta:
+        verbose_name_plural = 'Reviews'
+
+    def __unicode__(self):
+        return self.rating
