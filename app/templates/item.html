@@ -98,12 +98,23 @@
             </ul>
             <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade active in" id="home">
-                    <p class="inside-review">No reviews yet.</p>
+                    <div class="inside-review">
+                        {% for review in reviews %}
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{ review.rating }}&nbsp;Star<span class="pull-right">Review by {{ review.user.username }}</span></h3>
+                            </div>
+                            <div class="panel-body">
+                                {{ review.review }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="profile">
                     {% if request.user.is_authenticated %}
                     <div class="inside-review">
-                        <form class="form-horizontal" method="post" id="review-form" action="/review/" />{% csrf_token %}
+                        <form class="form-horizontal" method="post" id="review-form" action="/review/{{item.id}}/" />{% csrf_token %}
                             <div class="form-group">
                                 <label class="col-lg-2 control-label">Rating: </label>
                                 <div class="col-lg-10">
@@ -122,6 +133,7 @@
                                 <div class="col-lg-10 col-lg-offset-2">
                                     <button type="reset" class="btn btn-default">Cancel</button>
                                     <button type="submit" class="btn btn-primary">Submit</button>
+                                    <img src="/static/images/loading.gif" alt="loading" id="loading-bar"/>
                                 </div>
                             </div>
                         </form>
@@ -153,6 +165,7 @@
     <script src="{% static "js/sweet-alert.js" %}"></script>
     <script type="text/javascript">
     $("#loading").hide();
+    $("#loading-bar").hide();
     $("#checkpin").submit(function(e){
         $("#loading").show();
         var postData = $(this).serializeArray();
@@ -165,15 +178,48 @@
             {
                 $("#loading").hide();
                 if(data=="not ok"){
+                    $("#loading").hide();
                     swal("Delivery", "Not Available at this location", "info");
                 }
                 else{
-                    swal("Delivery", "Available with 1 seller", "success");
+                    $("#loading").hide();
+                    swal("Delivery", "Available with sellers", "success");
+                    $("#checkpin")[0].reset();
                 }
             }, 
             error:function(jqXHR, textStatus, errorThrown)
             {
                 $("#loading").hide();
+                swal("Some Error Occured");
+            }
+        });
+        e.preventDefault(); //STOP default action
+        e.unbind(); //unbind. to stop multiple form submit.
+    });
+    $("#review-form").submit(function(e){
+        $("#loading-bar").show();
+        var postData = $(this).serializeArray();
+        var formURL = $(this).attr("action");
+        $.ajax({
+            url : formURL,
+            type: "POST",
+            data: postData,
+            success:function(data, textStatus, jqXHR)
+            {
+                $("#loading").hide();
+                if(data=="not ok"){
+                    $("#loading-bar").hide();
+                    swal("Delivery", "Your Review has not been submitted for confirmation", "info");
+                }
+                else{
+                    $("#loading-bar").hide();
+                    swal("Delivery", "Your Review has been submitted for confirmation", "success");
+                    $("#review-form")[0].reset();
+                }
+            }, 
+            error:function(jqXHR, textStatus, errorThrown)
+            {
+                $("#loading-bar").hide();
                 swal("Some Error Occured");
             }
         });

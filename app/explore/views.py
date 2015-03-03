@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.pagination import PaginationSerializer
 from django.template import RequestContext
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 # view imports
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import DetailView
@@ -54,7 +55,7 @@ def item(request, pk):
     item = Item.objects.get(id=pk)
     f = Q(seller=item.price_set.all()[0].fk_seller) | Q(color=item.price_set.all()[0].fk_color)
     images = item.itemimage_set.filter(f)
-    return render_to_response('item.html', {'item':item, 'images':images, 'reviewform':ReviewForm}, context_instance=RequestContext(request))
+    return render_to_response('item.html', {'item':item, 'images':images, 'reviewform':ReviewForm, 'reviews':item.reviews_set.all()[:5]}, context_instance=RequestContext(request))
 
 def feedback(request):
     return render_to_response('feedback.html', context_instance=RequestContext(request))
@@ -67,4 +68,15 @@ def checkpin(request):
     except ObjectDoesNotExist:
         return HttpResponse("not ok")
 
+@login_required
+def review(request, pk):
+    if request.method=="POST":
+        form = ReviewForm(request.POST)
+        f = form.save(commit=False)
+        f.user = request.user
+        f.item = Item.objects.get(id=pk)
+        f.save()
+        return HttpResponse("ok")
+    else:
+        return HttpResponse("not ok")
 
