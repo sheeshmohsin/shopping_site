@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.pagination import PaginationSerializer
 from django.template import RequestContext
 from django.db.models import Q
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # view imports
 from django.http import HttpResponse, HttpResponseRedirect
@@ -54,7 +55,14 @@ def catalog(request, pk):
 def item(request, pk, color_pk, seller_pk):
     item = Item.objects.get(id=pk)
     images = item.itemimage_set.filter(color_id=color_pk)
-    price = item.price_set.get(Q(fk_seller__id=seller_pk) & Q(fk_color__id=color_pk))
+    try:
+        price = item.price_set.get(Q(fk_seller__id=seller_pk) & Q(fk_color__id=color_pk))
+    except:
+        try:
+            price = item.price_set.get(fk_color__id=color_pk)
+        except:
+            messages.error(request, "The item of this colour is currently out of stock.")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return render_to_response('item.html', {'item':item, 'images':images,
     'price':price, 'reviewform':ReviewForm, 'reviews':item.reviews_set.all()[:5]}, context_instance=RequestContext(request))
 
