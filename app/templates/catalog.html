@@ -77,7 +77,8 @@
             {% for item in finals %}
             <div class="col-md-4">
                 <div class="panel panel-primary" style="color:#0a3151;border-radius:0;">
-                    <div style="margin: 10px;"><a href="/item/{{item.id}}/">
+                    <div style="margin: 10px;">
+                        <a href="/item/{{item.id}}/{{ item.price_set.all.0.fk_color.id }}/{{ item.price_set.all.0.fk_seller.id }}/">
                     <img class="thumbnail img-responsive" alt="Bootstrap template" 
                         src="/media/{{ item.itemimage_set.all.0.image }}" /></a>
                         <h4 class="text-center">{{ item.item_name }}</h4>

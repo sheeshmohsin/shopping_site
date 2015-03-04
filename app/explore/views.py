@@ -51,11 +51,12 @@ def catalog(request, pk):
     return render_to_response('catalog.html', {'subcategories':subcategories, 'finals':result},
      context_instance=RequestContext(request))
 
-def item(request, pk):
+def item(request, pk, color_pk, seller_pk):
     item = Item.objects.get(id=pk)
-    f = Q(seller=item.price_set.all()[0].fk_seller) | Q(color=item.price_set.all()[0].fk_color)
-    images = item.itemimage_set.filter(f)
-    return render_to_response('item.html', {'item':item, 'images':images, 'reviewform':ReviewForm, 'reviews':item.reviews_set.all()[:5]}, context_instance=RequestContext(request))
+    images = item.itemimage_set.filter(color_id=color_pk)
+    price = item.price_set.get(Q(fk_seller__id=seller_pk) & Q(fk_color__id=color_pk))
+    return render_to_response('item.html', {'item':item, 'images':images,
+    'price':price, 'reviewform':ReviewForm, 'reviews':item.reviews_set.all()[:5]}, context_instance=RequestContext(request))
 
 def feedback(request):
     return render_to_response('feedback.html', context_instance=RequestContext(request))

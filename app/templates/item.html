@@ -45,8 +45,8 @@
                 <div class="col-lg-6">
                     <br>
                     <p style="font-size:1.5em;color:green;">In Stock</p>
-                    <h4 style="color:orange">Price: Rs {{ item.price_set.all.0.price }}</h4>
-                    {% if item.price_set.all.0.cod %}
+                    <h4 style="color:orange">Price: Rs {{ price.price }}</h4>
+                    {% if price.cod %}
                     <h5 style="color:green">(Cash on Delivery Available)</h5>
                     {% else %}
                     <h5 style="color:red">(Cash on Delivery Not Available)</h5>
@@ -69,11 +69,11 @@
     <div class="row">
         <div class="col-lg-12">
             <h3>Other Sellers</h3>
-            <table class="table">
+            <table class="table table-hover">
             {% for price in item.price_set.all %}
             {% if forloop.first %}
             {% else %}
-            <tr>
+            <tr onclick="openItem({{ item.id }}, {{ price.fk_seller.id }}, {{ images.0.color.id }})">
                 <td>{{ price.fk_seller.name }}</td>
                 <td>{{ price.price }}</td>
             </tr>
@@ -207,10 +207,17 @@
     .inside-review {
         padding:2%;
     }
+    .table-hover tr{
+        cursor: pointer;
+    }
     </style>
     <script src="{% static "js/item.js" %}"></script>
     <script src="{% static "js/sweet-alert.js" %}"></script>
     <script type="text/javascript">
+    function openItem(item_id, seller_id, color_id){
+        url = "/item/"+item_id+"/"+color_id+"/"+seller_id+"/";
+        window.location.href=url;
+    }
     $("#loading").hide();
     $("#loading-bar").hide();
     $("#checkpin").submit(function(e){

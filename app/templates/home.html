@@ -65,11 +65,11 @@
     {% for arrival in final %}
         {% if forloop.first %}
     <div class="item active aitem">
-      <div class="col-xs-3"><a href="#"><img src="/media/{{ arrival.picture1 }}" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="/item/{{arrival.id}}/{{ arrival.price_set.all.0.fk_color.id }}/{{ arrival.price_set.all.0.fk_seller.id }}/"><img src="/media/{{ arrival.itemimage_set.all.0.image }}" class="img-responsive"></a></div>
     </div>
     {% else %}
     <div class="item aitem">
-      <div class="col-xs-3"><a href="#"><img src="/media/{{ arrival.picture1 }}" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="/item/{{arrival.id}}/{{ arrival.price_set.all.0.fk_color.id }}/{{ arrival.price_set.all.0.fk_seller.id }}/"><img src="/media/{{ arrival.itemimage_set.all.0.image }}" class="img-responsive"></a></div>
     </div>
     {% endif %}
     {% endfor %}
@@ -110,11 +110,11 @@
     {% for arrivals in final1 %}
         {% if forloop.first %}
     <div class="item active bitem">
-      <div class="col-xs-3"><a href="#"><img src="/media/{{ arrivals.picture1 }}" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="/item/{{arrivals.id}}/{{ arrivals.price_set.all.0.fk_color.id }}/{{ arrivals.price_set.all.0.fk_seller.id }}/"><img src="/media/{{ arrivals.itemimage_set.all.0.image }}" class="img-responsive"></a></div>
     </div>
     {% else %}
     <div class="item bitem">
-      <div class="col-xs-3"><a href="#"><img src="/media/{{ arrivals.picture1 }}" class="img-responsive"></a></div>
+      <div class="col-xs-3"><a href="/item/{{arrivals.id}}/{{ arrivals.price_set.all.0.fk_color.id }}/{{ arrivals.price_set.all.0.fk_seller.id }}/"><img src="/media/{{ arrivals.itemimage_set.all.0.image }}" class="img-responsive"></a></div>
     </div>
     {% endif %}
     {% endfor %}
