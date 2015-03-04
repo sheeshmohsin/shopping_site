@@ -85,7 +85,6 @@ class Price(models.Model):
 class Itemimage(models.Model):
     item = models.ForeignKey(Item)
     color = models.ForeignKey(Colour)
-    seller = models.ForeignKey(Seller)
     image = models.ImageField(_('Image'), upload_to=get_upload_file_path)
 
     class Meta:
