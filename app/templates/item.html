@@ -33,10 +33,10 @@
                 </div>
                 <div class="col-lg-6">
                     Select Color:
-                    <select class="form-control">
+                    <select class="form-control" id="color-dropdown" onchange="openItemOnChange({{ item.id }}, {{ price.fk_seller.id }})">
                         <option>--Select--</option>
                         {% for variety in item.fk_color.all %}
-                        <option>{{ variety.colour }}</option>
+                        <option value="{{ variety.id }}">{{ variety.colour }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -214,6 +214,10 @@
     <script src="{% static "js/item.js" %}"></script>
     <script src="{% static "js/sweet-alert.js" %}"></script>
     <script type="text/javascript">
+    function openItemOnChange(item_id, seller_id){
+        url = "/item/"+item_id+"/"+$("#color-dropdown").val()+"/"+seller_id+"/";
+        window.location.href=url;
+    }
     function openItem(item_id, seller_id, color_id){
         url = "/item/"+item_id+"/"+color_id+"/"+seller_id+"/";
         window.location.href=url;
