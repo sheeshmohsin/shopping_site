@@ -96,6 +96,7 @@ class Common(Configuration):
         "django.core.context_processors.request",
         "allauth.account.context_processors.account",
         "django.contrib.auth.context_processors.auth",
+        "django.contrib.messages.context_processors.messages",
         "allauth.socialaccount.context_processors.socialaccount",
         "explore.context_processors.category_list",
     )
