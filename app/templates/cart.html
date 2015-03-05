@@ -1,0 +1,19 @@
+{% load carton_tags %}
+{% get_cart as cart %}
+{% for item in cart.items %}
+    {{ item.product.item_name }}
+    <br>
+    {{ item.quantity }}
+    <br>
+    {{ item.color }}
+    <br>
+    {{ item.price }}
+    <br>
+    {{ item.seller }}
+    <br>
+{% endfor %}
+
+You can also use this convinent shortcut:
+{% for product in cart.products %}
+    {{ product.item_name }}
+{% endfor %}
