@@ -10,24 +10,30 @@ class CartItem(object):
     """
     A cart item, with the associated product, its quantity and its price.
     """
-    def __init__(self, product, quantity, price, color, seller):
-        self.price, self.color, self.seller = [], [], []
+    def __init__(self, product, quantity, others):
+        # self.price, self.color, self.seller = [], [], []
+        self.price=1
+        self.others_list=[]
         self.product = product
         self.quantity = int(quantity)
-        if isinstance(price, list):
-            self.price.extend(price)
+        if isinstance(others, list):
+            self.others_list.extend(others)
         else:
-            self.price.append(price)
+            self.others_list.append(others)
+        # if isinstance(price, list):
+        #     self.price.extend(price)
+        # else:
+        #     self.price.append(price)
 
-        if isinstance(color, list):
-            self.color.extend(color)
-        else:
-            self.color.append(color)
+        # if isinstance(color, list):
+        #     self.color.extend(color)
+        # else:
+        #     self.color.append(color)
 
-        if isinstance(seller, list):
-            self.seller.extend(seller)
-        else:
-            self.seller.append(seller)
+        # if isinstance(seller, list):
+        #     self.seller.extend(seller)
+        # else:
+        #     self.seller.append(seller)
 
     def __repr__(self):
         return u'CartItem Object (%s)' % self.product
@@ -36,9 +42,7 @@ class CartItem(object):
         return {
             'product_pk': self.product.pk,
             'quantity': self.quantity,
-            'price': list(self.price),
-            'color': list(self.color),
-            'seller': list(self.seller),
+            'others_list': self.others_list,
         }
 
     @property
@@ -46,7 +50,10 @@ class CartItem(object):
         """
         Subtotal for the cart item.
         """
-        return self.price * self.quantity
+        sum = 0.00
+        for details in self.others_list:
+            sum = sum + float(details['price'])
+        return sum
 
 
 class Cart(object):
@@ -67,7 +74,7 @@ class Cart(object):
             for product in products_queryset:
                 item = cart_representation[str(product.pk)]
                 self._items_dict[product.pk] = CartItem(
-                    product, item['quantity'], item['price'], item['color'], item['seller']
+                    product, item['quantity'], item['others_list']
                     )
 
     def __contains__(self, product):
@@ -101,7 +108,7 @@ class Cart(object):
         self.session[self.session_key] = self.cart_serializable
         self.session.modified = True
 
-    def add(self, product, price=None, quantity=1, color=None, seller=None):
+    def add(self, product, quantity=1, others=None):
         """
         Adds or creates products in cart. For an existing product,
         the quantity is increased and the price is ignored.
@@ -111,21 +118,11 @@ class Cart(object):
             raise ValueError('Quantity must be at least 1 when adding to cart')
         if product in self.products:
             self._items_dict[product.pk].quantity += quantity
-            self._items_dict[product.pk].color.append(color)
-            self._items_dict[product.pk].seller.append(seller)
-            self._items_dict[product.pk].price.append(price)
-            print self._items_dict[product.pk].color
-            print self._items_dict[product.pk].seller
-            print self._items_dict[product.pk].price
-            print "A"
+            self._items_dict[product.pk].others_list.append(others)
         else:
-            if price == None:
+            if others['price'] == None:
                 raise ValueError('Missing price when adding to cart')
-            self._items_dict[product.pk] = CartItem(product, quantity, price, color, seller)
-            print self._items_dict[product.pk].color
-            print self._items_dict[product.pk].seller
-            print self._items_dict[product.pk].price
-            print "B"
+            self._items_dict[product.pk] = CartItem(product, quantity, others)
         self.update_session()
 
     def remove(self, product):
@@ -231,4 +228,4 @@ class Cart(object):
         """
         The total value of all items in the cart.
         """
-        return sum([item.subtotal for item in self.items])
+        return sum([float(item.subtotal) for item in self.items])
