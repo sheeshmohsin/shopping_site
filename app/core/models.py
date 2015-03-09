@@ -139,3 +139,18 @@ class Reviews(models.Model):
 
     def __unicode__(self):
         return self.rating
+
+class Deliveryaddress(models.Model):
+    user = models.ForeignKey(User)
+    name = models.CharField(_('Name'), max_length=30)
+    pincode = models.CharField(_('Pincode'), max_length=7, unique=True)
+    address = models.TextField(_('Address'))
+    landmark = models.CharField(_('Lankmark'), max_length=30, blank=True, null=True)
+    phone = models.CharField(_('Phone Number'), max_length=10)
+
+    class Meta:
+        verbose_name_plural = 'Delivery Address'
+
+    def __unicode__(self):
+        return self.name
+
