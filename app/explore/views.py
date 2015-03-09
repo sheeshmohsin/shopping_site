@@ -64,7 +64,9 @@ def item(request, pk, color_pk, seller_pk):
             messages.error(request, "The item of this colour is currently out of stock.")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     return render_to_response('item.html', {'item':item, 'images':images,
-    'price':price, 'reviewform':ReviewForm, 'reviews':item.reviews_set.all()[:5]}, context_instance=RequestContext(request))
+    'price':price, 'reviewform':ReviewForm, 'reviews':item.reviews_set.all()[:5], 
+    },
+     context_instance=RequestContext(request))
 
 def feedback(request):
     return render_to_response('feedback.html', context_instance=RequestContext(request))

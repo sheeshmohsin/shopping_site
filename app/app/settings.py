@@ -55,6 +55,7 @@ class Common(Configuration):
         'users',  # custom users app
         'core',
         'explore',
+        'cart',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -99,6 +100,7 @@ class Common(Configuration):
         "django.contrib.messages.context_processors.messages",
         "allauth.socialaccount.context_processors.socialaccount",
         "explore.context_processors.category_list",
+        "explore.context_processors.cart_item",
     )
 
     AUTHENTICATION_BACKENDS = (

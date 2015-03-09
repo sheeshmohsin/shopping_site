@@ -1,0 +1,129 @@
+{% extends "cart/base.html" %}
+{% load static %}
+{% load carton_tags %}
+
+{% block exinstatic %}
+    <link rel="stylesheet" href="{% static 'font-awesome/css/font-awesome.css' %}" />
+    <link rel="stylesheet" href="{% static 'nailthumb/jquery.nailthumb.1.1.css' %}" />
+    <script src="{% static 'nailthumb/jquery.nailthumb.1.1.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+{% get_cart as cart %}
+<div class="container">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Other Details</th>
+                <th>Sub Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if cart.items %}
+        {% for item in cart.items %}
+        <tr class="warning">
+            <td>
+                <div class="nailthumb-container square-thum">
+                    <img src="/media/{{ item.product.itemimage_set.all.0.image }}" />
+                </div> <br>{{ item.product.item_name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>
+                <table>
+                    <thead>
+                        <th class="item-details">Color</th>
+                            <th class="item-details">Price</th>
+                            <th class="item-details">Size</th>
+                            <th class="item-details">Seller</th>
+                    </thead>
+                    {% for other in item.others_list %}
+                    <tr>
+                        <td class="item-details">{{ other.color }}</td>
+                        <td class="item-details"><i class="fa fa-inr"></i>&nbsp;{{ other.price }}</td>
+                        <td class="item-details">{{ other.size }}</td>
+                        <td class="item-details">{{ other.seller }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+            <td><i class="fa fa-inr"></i>&nbsp;{{ item.subtotal }}</td>
+            <td><a href="/cart/remove/{{ item.product.id }}/" class="removeItem" title="Remove this item"><strong>x</strong></a></td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td>No items in Cart &nbsp;<a href="/" class="btn btn-sm btn-primary">Continue Shopping</a></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        {% endif %}
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="font-weight:bold;font-size:1.2em;">Total:</td>
+            <td><i class="fa fa-inr"></i>&nbsp;<span id="total">{{ cart.total }}</span></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{% if cart.items %}<a href="/cart/checkout/" class="btn btn-sm btn-primary">Checkout</a>{% endif %}</td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="maintain">
+
+</div>
+
+
+{% endblock %}
+{% block exlastatic %}
+<script type="text/javascript">
+// $(".removeItem").click(function(e){
+//     var actionURL = $(this).attr('href');
+//     var parents = $(this).parents()[1];
+//     $.ajax({
+//         url : actionURL,
+//         type: "GET",
+//         success:function(data, textStatus, jqXHR)
+//         {
+//             if (data="ok"){
+//                 $(".indexing").html("<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>Item successfully removed from the cart.</div>");
+//                 parents.remove();
+//             }
+//         }, 
+//         error:function(jqXHR, textStatus, errorThrown)
+//         {
+//             alert("Some Error Occured");
+//         }
+//     });
+//     e.preventDefault();
+// });
+</script>
+<style type="text/css">
+.item-details{
+    padding-left: 10px;
+}
+.table {
+    border: 2px solid black;
+}
+#maintain{
+    min-height: 305px;
+}
+.square-thum{
+    width: 80px;
+    height: 80px;
+}
+a:hover{
+    text-decoration: none;
+}
+</style>
+{% endblock %}

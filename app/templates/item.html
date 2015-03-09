@@ -21,22 +21,22 @@
         <div class="col-lg-6">
             <div class="row">
                 <h2>{{ item.item_name }}</h2>
-                <h4>Rating : 5 Star (10 reviews)</h4>
+                <h4>Rating : 5 Star ({{ reviews.count }} reviews)</h4>
                 <div class="col-lg-6">
                     Select Size: 
-                    <select class="form-control">
-                        <option>--Select--</option>
+                    <select class="form-control" id="size-dropdown">
+                        <option value="">--Select--</option>
                         {% for measure in item.fk_size.all %}
-                        <option>{{ measure.size }}</option>
+                        <option value="{{measure.id}}">{{ measure.size }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="col-lg-6">
                     Select Color:
                     <select class="form-control" id="color-dropdown" onchange="openItemOnChange({{ item.id }}, {{ price.fk_seller.id }})">
-                        <option>--Select--</option>
+                        <option value="">--Select--</option>
                         {% for variety in item.fk_color.all %}
-                        <option value="{{ variety.id }}">{{ variety.colour }}</option>
+                        <option value="{{ variety.id }}" {% ifequal variety.colour price.fk_color.colour %}selected="selected"{% endifequal %}>{{ variety.colour }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -51,7 +51,10 @@
                     {% else %}
                     <h5 style="color:red">(Cash on Delivery Not Available)</h5>
                     {% endif %}
-                    <button class="btn btn-primary btn-lg">Add to Cart</button>
+                    <a class="btn btn-primary btn-lg addToCart"
+                     href="/cart/add/?id={{item.id}}&sellerid={{price.fk_seller.id}}&colorid={{price.fk_color.id}}&price={{price.price}}">
+                     Add to Cart
+                    </a>&nbsp;&nbsp;<img src="/static/images/loading.gif" alt="loading" id="loadcart"/>
                 </div>
                 <div class="col-lg-6">
                     <br>
@@ -215,15 +218,35 @@
     <script src="{% static "js/sweet-alert.js" %}"></script>
     <script type="text/javascript">
     function openItemOnChange(item_id, seller_id){
-        url = "/item/"+item_id+"/"+$("#color-dropdown").val()+"/"+seller_id+"/";
-        window.location.href=url;
+        if($("#color-dropdown").val()!==""){
+            url = "/item/"+item_id+"/"+$("#color-dropdown").val()+"/"+seller_id+"/";
+            window.location.href=url;
+        }
     }
     function openItem(item_id, seller_id, color_id){
         url = "/item/"+item_id+"/"+color_id+"/"+seller_id+"/";
         window.location.href=url;
     }
+    $("#size-dropdown").change(function(e){
+        if($("#size-dropdown").val()!=="" && $("#color-dropdown").val()!==""){
+            $(".addToCart").removeAttr("disabled");
+        }
+        else{
+            $(".addToCart").attr('disabled', 'disabled');
+        }
+    });
+    $("#color-dropdown").change(function(e){
+        if($("#size-dropdown").val()!=="" && $("#color-dropdown").val()!==""){
+            $(".addToCart").removeAttr("disabled");
+        }
+        else{
+            $(".addToCart").attr('disabled', 'disabled');
+        }
+    });
+    $(".addToCart").attr('disabled', 'disabled');
     $("#loading").hide();
     $("#loading-bar").hide();
+    $("#loadcart").hide();
     $("#checkpin").submit(function(e){
         $("#loading").show();
         var postData = $(this).serializeArray();
@@ -283,6 +306,27 @@
         });
         e.preventDefault(); //STOP default action
         e.unbind(); //unbind. to stop multiple form submit.
+    });
+    $(".addToCart").click(function(e)
+    {
+        var formURL = $(this).attr("href");
+        $("#loadcart").show();
+        $.ajax(
+        {
+            url : formURL+"&size="+$("#size-dropdown").val(),
+            type: "GET",
+            success:function(data, textStatus, jqXHR) 
+            {
+                $("#loadcart").hide();
+                $("#countCart").text(data);
+                $(".indexing").html("<div class='alert alert-success alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>x</button>Item successfully added to cart.</div>");
+            },
+            error: function(jqXHR, textStatus, errorThrown) 
+            {
+                alert('[Error] Please try Again');
+            }
+        });
+        e.preventDefault(); //STOP default action
     });
     </script>
 {% endblock %}
